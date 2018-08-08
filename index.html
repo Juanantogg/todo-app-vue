@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es_MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js</title>
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+  <div id="appVue">
+    <h1 class="title">ToDo APP</h1>
+    <div class="container">
+      <div class="add">
+        <h2 v-if="list.length > 0"> Agregar una tarea </h2>
+        <h2 v-else> Crear una tarea </h2>
+        <input type="text" name="text" placeholder="Ingresa una tarea" v-model="newTask" v-on:keyup.enter="addTask" >
+        <button v-on:click="addTask">Agregar tarea</button>
+        <div v-if="list.length > 0" class="dataTask">
+          <small class="tareas">Tareas: {{ list.length }}</small>
+          <small class="completadas">Completadas: {{ completadas }}</small>
+          <small class="pendientes">Pendientes: {{ pendientes }}</small>
+        </div>
+      </div>
+      <div class="add list">
+        <h2 v-if="list.length > 0"> Listado de tareas </h2>
+        <h2 v-else> No hay tareas registradas </h2>
+        <ul>
+          <li v-for="task, i in list" v-bind:class="{check: task.completed}" >
+            <label v-bind:class="{check: task.completed}">&check;
+              <input v-on:change="task.completed = !task.completed" type="checkbox" name="check" id="check">
+            </label>
+            {{ task.task }}
+            <span v-on:click="removeTask(i)">
+              <p>&cross;</p>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <footer>
+      <p>Powered by <a href="https://vuejs.org/" target="_black">Vue.js</a></p>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>
